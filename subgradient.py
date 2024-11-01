@@ -24,3 +24,5 @@ x0 = np.array([2, 2, 2])
 x_opt = subgradient_method(x0)
 print("Optimal solution:", x_opt)
 print("Function value at optimal solution:", f(x_opt))
+
+#
