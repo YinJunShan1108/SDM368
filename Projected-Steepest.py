@@ -32,7 +32,7 @@ while True:
     if np.linalg.norm(x - x_old) / alpha < tolerance:
         break
 
-# 输出结果
+# print
 print("\nOptimal solution:", x)
 print("Objective function value:", f(x))
 print("Iterations:", iteration)
