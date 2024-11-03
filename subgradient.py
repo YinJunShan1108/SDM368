@@ -17,7 +17,7 @@ def subgradient(x):
 def subgradient_descent(x0, tol):
     x = x0
     iteration = 0
-    while np.linalg.norm(x) >= tol:
+    while True:
         grad = subgradient(x)
         if step_size_name == 'fixed_step':
             alpha = fixed_step()
@@ -28,6 +28,10 @@ def subgradient_descent(x0, tol):
         x = x - alpha * grad  # Update x
         iteration += 1
         print(f"Iteration {iteration}: x = {x}, f(x) = {f(x)}")
+
+        if np.linalg.norm(x) < tol:
+            break
+
     return x, iteration
 
 # Step update policy
@@ -40,7 +44,7 @@ def decaying_step(k):
     return a0 / (1 + k)
 
 # 1. fixed_step 2. decaying_step
-step_size_name = 'decaying_step'
+step_size_name = 'fixed_step'
 # Initial point
 x0 = 1.0
 

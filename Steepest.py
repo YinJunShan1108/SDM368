@@ -42,14 +42,13 @@ tolerance = 1e-4
 
 # iterative process
 iteration = 0
-while np.linalg.norm(grad_f(x)) >= tolerance:
-    grad = grad_f(x)
+while True:
 
     if step_size_name == 'fixed_step':
         alpha = fixed_step()
 
     elif step_size_name == 'backtracking_line_search':
-        alpha = backtracking_line_search(x, grad)
+        alpha = backtracking_line_search(x, grad_f(x))
 
     elif step_size_name == "decaying_step":
         alpha = decaying_step(iteration)
@@ -57,11 +56,14 @@ while np.linalg.norm(grad_f(x)) >= tolerance:
     elif step_size_name == "sqrt_decay_step":
         alpha = sqrt_decay_step(iteration)
 
-    x = x - alpha * grad  # Update x
+    x = x - alpha * grad_f(x)  # Update x
     iteration += 1
 
     # Print information for each iteration
-    print(f"Iteration {iteration}: x = {x}, f(x) = {f(x)}, ||grad_f(x)|| = {np.linalg.norm(grad)}")
+    print(f"Iteration {iteration}: x = {x}, f(x) = {f(x)}, ||grad_f(x)|| = {np.linalg.norm(grad_f(x))}")
+    if np.linalg.norm(grad_f(x)) < tolerance:
+        break
+
 
 # print
 print("\n")
