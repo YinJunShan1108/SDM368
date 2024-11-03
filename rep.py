@@ -2,14 +2,10 @@ import numpy as np
 
 # 定义目标函数
 def f(x):
-    # return 100 * (x[0]**2 - x[1])**2 + (x[0] - 1)**2
     return (x[0] ** 2 - x[1]) ** 2 + (x[0] - 1) ** 2
 
 # 计算梯度
 def grad_f(x):
-    # dfdx1 = 400 * x[0] * (x[0]**2 - x[1]) + 2 * (x[0] - 1)
-    # dfdx2 = -200 * (x[0]**2 - x[1])
-    # return np.array([dfdx1, dfdx2])
 
     dfdx1 = 4 * x[0] * (x[0] ** 2 - x[1]) + 2 * (x[0] - 1)
     dfdx2 = -2 * (x[0] ** 2 - x[1])
@@ -37,7 +33,7 @@ def sqrt_decay_step(k):
 
 
 # 初始条件
-x = np.array([-2.1, 0])  # 初始点
+x = np.array([-2, 0])  # 初始点
 
 # 1. fixed_step 2. backtracking_line_search 3. decaying_step 4. sqrt_decay_step
 step_size_name = 'backtracking_line_search'
@@ -47,7 +43,7 @@ tolerance = 1e-4
 
 # 迭代过程
 iteration = 0
-while np.linalg.norm(grad_f(x)) >= tolerance and iteration < 10000:
+while np.linalg.norm(grad_f(x)) >= tolerance and iteration < 500:
     grad = grad_f(x)
 
     if step_size_name == 'fixed_step':
