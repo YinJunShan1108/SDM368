@@ -1,4 +1,3 @@
-import cvxpy as cp
 import numpy as np
 
 # Define the objective function
@@ -17,35 +16,15 @@ def project(x):
 
     return x
 
-def project2(x0):
-    # Define variables
-    x = cp.Variable(2)
-
-    # Extract variables
-    x1, x2 = x[0], x[1]
-
-    # Define the objective function
-    objective = cp.Minimize(0.5 * ((x1 - x0[0]) ** 2 + (x2 - x0[1]) ** 2) ** 2)
-
-
-    # Define the constraints
-    constraints = [x1 <= -2, x2 >= 2]
-
-    # Construct and solve the problem
-    problem = cp.Problem(objective, constraints)
-    problem.solve()
-
-    return np.round(x.value, decimals=2)
-
 
 x = np.array([-3,3])
 alpha, tolerance = 0.0001, 1e-4
 
 iteration = 0
+
 while True:
     x_old = x.copy()
     x = project(x - alpha * grad_f(x))
-
     iteration += 1
 
     print(
